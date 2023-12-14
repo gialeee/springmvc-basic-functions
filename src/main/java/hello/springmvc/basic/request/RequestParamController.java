@@ -128,7 +128,7 @@ public class RequestParamController {
         log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
         log.info("helloData={}", helloData);
 
-        // 숫자 들어갈 곳에 문자 넣음 -> 바인딩 오류 (BindException)
+        // 숫자 들어갈 곳에 문자 넣은 상황? -> 바인딩 오류 (BindException) 발생
         // 검증에서 처리하는 부분
 
         return "ok";
