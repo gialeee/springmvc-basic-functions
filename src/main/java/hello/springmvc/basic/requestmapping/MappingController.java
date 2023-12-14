@@ -57,4 +57,18 @@ public class MappingController {
 
         return "ok";
     }
+
+    /**
+     * Accept 헤더 기반 Media Type
+     * produces="text/html"
+     * produces="!text/html"
+     * produces="text/*"
+     * produces="*\/*"
+     */
+    @PostMapping(value = "/mapping-param", produces = "text/html") // 맞지 않을 경우 HTTP 406 코드 반환
+    public String mappingProduces() {
+        log.info("mapping consumes");
+
+        return "ok";
+    }
 }
