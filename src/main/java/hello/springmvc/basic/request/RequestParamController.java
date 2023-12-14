@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
+import java.util.Map;
 
 @Slf4j
 @Controller // @RestController가 아닌 경우 아래 메서드에 @ResponseBody 애노테이션 추가해줘야 String 메세지 바디에 반환
@@ -72,6 +73,22 @@ public class RequestParamController {
             @RequestParam(required = false, defaultValue = "-1") Integer age) { // 빈 문자열이 들어와도 defaultValue가 적용됨
 
         log.info("username={}, age={}", username, age);
+
+        return "ok";
+    }
+
+    /**
+     * @RequestParam Map, MultiValueMap
+     * Map(key=value)
+     * MultiValueMap(key=[value1, value2, ...] ex) (key=userIds, value=[id1, id2])
+     * 파라미터 값이 1개인지 확실치 않다면 MultiValueMap 사용 추천
+     */
+    @ResponseBody
+    @RequestMapping("/request-param-map")
+    public String requestParamMap(
+            @RequestParam Map<String, Object> paramMap) {
+
+        log.info("username={}, age={}", paramMap.get("username"), paramMap.get("age"));
 
         return "ok";
     }
