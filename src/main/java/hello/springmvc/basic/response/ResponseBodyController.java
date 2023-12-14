@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.io.IOException;
 
@@ -39,5 +40,16 @@ public class ResponseBodyController {
         helloData.setAge(20);
 
         return new ResponseEntity<>(helloData, HttpStatus.OK);
+    }
+
+    @ResponseStatus(HttpStatus.OK)  // 응답코드를 프로그램 조건에 따라 동적으로 바꾸고 싶을 경우 ResponseEntity 사용!
+    @ResponseBody
+    @GetMapping("/response-body-json-v2")
+    public HelloData responseBodyJsonV2() {
+        HelloData helloData = new HelloData();
+        helloData.setUsername("userA");
+        helloData.setAge(20);
+
+        return helloData;
     }
 }
