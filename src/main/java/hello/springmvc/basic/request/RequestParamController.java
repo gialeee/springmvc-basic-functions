@@ -1,9 +1,11 @@
 package hello.springmvc.basic.request;
 
+import hello.springmvc.basic.HelloData;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -89,6 +91,45 @@ public class RequestParamController {
             @RequestParam Map<String, Object> paramMap) {
 
         log.info("username={}, age={}", paramMap.get("username"), paramMap.get("age"));
+
+        return "ok";
+    }
+
+    /**
+     * @ModelAttribute 사용
+     * cf) model.addAttribute(helloData) 코드도 함꼐 자동 적용됨, 뒤에 model을 설명할 때 자세히 설명
+     */
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    public String modelAttributeV1(@ModelAttribute HelloData helloData) {
+        // @ModelAttribute이 자동으로 처리해주는 내용
+        // HelloData helloData = new HelloData();
+        // helloData.setUsername(username);
+        // helloData.setAge(age);
+
+        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+        log.info("helloData={}", helloData);
+        
+        // 숫자 들어갈 곳에 문자 넣음 -> 바인딩 오류 (BindException)
+        // 검증에서 처리하는 부분
+
+        return "ok";
+    }
+
+    /**
+     * @ModelAttribute 생략
+     * `String`, `int`, `Integer` 등 단순 타입 = @RequestParam
+     * 나머지는 @ModelAttribute (argument resolver로 지정해둔 타입 외)
+     */
+    @ResponseBody
+    @RequestMapping("/model-attribute-v2")
+    public String modelAttributeV2(HelloData helloData) {
+
+        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+        log.info("helloData={}", helloData);
+
+        // 숫자 들어갈 곳에 문자 넣음 -> 바인딩 오류 (BindException)
+        // 검증에서 처리하는 부분
 
         return "ok";
     }
