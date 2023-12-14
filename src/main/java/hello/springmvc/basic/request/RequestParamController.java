@@ -53,4 +53,15 @@ public class RequestParamController {
 
         return "ok";
     }
+
+    @ResponseBody
+    @RequestMapping("/request-param-required")
+    public String requestParamRequired(
+            @RequestParam(required = true) String username,
+            @RequestParam(required = false) Integer age) { // int형을 사용할 경우 null이 들어갈 수 없어서 500 에러 뜸
+
+        log.info("username={}, age={}", username, age);
+
+        return "ok";
+    }
 }
