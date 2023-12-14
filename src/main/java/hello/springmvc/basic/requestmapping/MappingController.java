@@ -64,7 +64,8 @@ public class MappingController {
      * Accept 헤더 기반 Media Type
      * produces="text/html"
      * produces="!text/html"
-     * produces="text/*"
+     * produces={"application/*","text/*"}
+     * produces="text/plain;UTF-8"
      * produces="*\/*"
      */
     @PostMapping(value = "/mapping-param", produces = MediaType.TEXT_HTML_VALUE) // 맞지 않을 경우 HTTP 406 코드 반환
