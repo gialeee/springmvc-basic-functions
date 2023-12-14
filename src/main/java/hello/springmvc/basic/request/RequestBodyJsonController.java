@@ -40,9 +40,22 @@ public class RequestBodyJsonController {
     @ResponseBody
     @PostMapping("/request-body-json-v2")
     public String requestBodyJsonV2(@RequestBody String messageBody) throws IOException {
-
         log.info("messageBody={}", messageBody);
         HelloData helloData = objectMapper.readValue(messageBody, HelloData.class);
+        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+
+        return "ok";
+    }
+
+    /**
+     * @RequestBody 생략 불가능(@ModelAttribute 가 적용되어 버림)
+     * HttpMessageConverter 사용 -> MappingJackson2HttpMessageConverter (content-type:
+    application/json)
+     *
+     */
+    @ResponseBody
+    @PostMapping("/request-body-json-v3")
+    public String requestBodyJsonV3(@RequestBody HelloData helloData) { // @RequestBody 생략 불가능 -> 생략 시 @ModelAttribute로 처리됨
         log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
 
         return "ok";
