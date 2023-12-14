@@ -1,6 +1,7 @@
 package hello.springmvc.basic.requestmapping;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -49,9 +50,10 @@ public class MappingController {
      * consumes="!application/json"
      * consumes="application/*"
      * consumes="*\/*"
-     * MediaType.APPLICATION_JSON_VALUE
+     * consumes={"application/json","text/*"}
+     * consumes=MediaType.APPLICATION_JSON_VALUE
      */
-    @PostMapping(value = "/mapping-param", consumes = "application/json")
+    @PostMapping(value = "/mapping-param", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String mappingConsumes() {
         log.info("mapping consumes");
 
@@ -65,7 +67,7 @@ public class MappingController {
      * produces="text/*"
      * produces="*\/*"
      */
-    @PostMapping(value = "/mapping-param", produces = "text/html") // 맞지 않을 경우 HTTP 406 코드 반환
+    @PostMapping(value = "/mapping-param", produces = MediaType.TEXT_HTML_VALUE) // 맞지 않을 경우 HTTP 406 코드 반환
     public String mappingProduces() {
         log.info("mapping consumes");
 
